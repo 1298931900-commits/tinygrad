@@ -1,4 +1,55 @@
+## 本地冒烟测试记录
+
+本仓库是 [tinygrad/tinygrad](https://github.com/tinygrad/tinygrad) 的个人 fork，用于跑通官方单算子冒烟测试。未改算法。
+
+- **Fork 地址**：https://github.com/1298931900-commits/tinygrad
+- **上游仓库**：https://github.com/tinygrad/tinygrad
+- **选中的算子**：`add`（`Tensor + Tensor`，官方测试 `TestTiny.test_plus`）
+- **本机环境**：Windows 11 + Python 3.12.10 + RTX 3060 Laptop（本次冒烟使用官方 `PYTHON` 后端，不依赖 clang / CUDA 编译）
+
+### 安装命令
+
+```powershell
+git clone https://github.com/1298931900-commits/tinygrad.git
+cd tinygrad
+python -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -U pip
+.\.venv\Scripts\python.exe -m pip install -e .
+.\.venv\Scripts\python.exe -m pip install pytest numpy
+```
+
+如果直连 GitHub 不稳定，可用镜像 clone：
+
+```powershell
+git clone --depth 1 https://ghfast.top/https://github.com/1298931900-commits/tinygrad.git
+```
+
+### 测试命令
+
+```powershell
+$env:DEV = "PYTHON"
+.\.venv\Scripts\python.exe -m pytest -v test/test_tiny.py::TestTiny::test_plus
+```
+
+### 通过结果
+
+```text
+============================= test session starts =============================
+platform win32 -- Python 3.12.10, pytest-9.1.1, pluggy-1.6.0 -- C:\Users\felicial\ops-libs\tinygrad\.venv\Scripts\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\felicial\ops-libs\tinygrad
+configfile: pyproject.toml
+collecting ... collected 1 item
+
+test/test_tiny.py::TestTiny::test_plus PASSED                            [100%]
+
+============================== 1 passed in 0.37s ==============================
+```
+
+---
+
 <div align="center">
+
 
 <picture>
   <source media="(prefers-color-scheme: light)" srcset="/docs/logo_tiny_light.svg">
